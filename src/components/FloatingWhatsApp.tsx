@@ -1,7 +1,9 @@
 import { MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const FloatingWhatsApp = () => {
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -26,31 +28,23 @@ const FloatingWhatsApp = () => {
   return (
     <button
       onClick={handleClick}
-      className={`fixed right-8 bottom-8 z-40 transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20 pointer-events-none"}`}
+      className={`fixed right-8 bottom-8 z-40 transition-all duration-300 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20 pointer-events-none"
+      }`}
       aria-label="Contact via WhatsApp"
     >
       <div className="whatsapp-button group relative">
-        <div className="bg-gold/20 p-3 rounded-full">
-          <MessageCircle className="w-7 h-7 text-gold shrink-0" />
-        </div>
+        <img src="https://images.seeklogo.com/logo-png/30/2/whatsapp-icon-logo-png_seeklogo-305567.png" alt="WhatsApp" className="w-12 h-12" />
 
         <div className="absolute inset-0 rounded-full bg-gold animate-ping opacity-30" />
 
         <div className="absolute -top-14 right-1/2 transform translate-x-1/2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pointer-events-none">
-          <div className="bg-black text-gold text-sm font-semibold px-3 py-1.5 rounded-lg relative shadow-lg">
-            Contact Now!
+          <div className="bg-black text-gold text-sm font-semibold px-3 py-1.5 rounded-lg relative shadow-lg text-nowrap">
+            {t("contact.info.call")}
             <div className="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rotate-45 shadow-lg"></div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        .whatsapp-button {
-          @apply relative w-16 h-16 rounded-full bg-gradient-gold shadow-gold;
-          @apply flex items-center justify-center cursor-pointer;
-          @apply hover:scale-110 hover:shadow-2xl transition-all duration-300;
-        }
-      `}</style>
     </button>
   );
 };

@@ -33,25 +33,25 @@ const ExportSection = () => {
 
   const regions = [
     {
-      region: "Asia",
+      region: t("export.regions.asia"),
       countries: [
-        { name: "South Korea", code: "kr" },
-        { name: "Japan", code: "jp" },
-        { name: "China", code: "cn" },
-        { name: "Vietnam", code: "vn" },
-        { name: "Saudi Arabia", code: "sa" },
+        { name: t("export.countries.kr"), code: "kr" },
+        { name: t("export.countries.jp"), code: "jp" },
+        { name: t("export.countries.cn"), code: "cn" },
+        { name: t("export.countries.vn"), code: "vn" },
+        { name: t("export.countries.sa"), code: "sa" },
       ],
     },
     {
-      region: "Europe",
+      region: t("export.regions.europe"),
       countries: [
-        { name: "United Kingdom", code: "gb" },
-        { name: "Nederland", code: "nl" },
+        { name: t("export.countries.gb"), code: "gb" },
+        { name: t("export.countries.nl"), code: "nl" },
       ],
     },
     {
-      region: "America",
-      countries: [{ name: "United States", code: "us" }],
+      region: t("export.regions.america"),
+      countries: [{ name: t("export.countries.us"), code: "us" }],
     },
   ];
 
@@ -59,7 +59,7 @@ const ExportSection = () => {
     <section id="export" ref={sectionRef} className="py-16 md:py-20 bg-background relative">
       <div className="container mx-auto px-4 relative">
         <SectionHeader 
-          label="Global Presence"
+          label={t("export.label")}
           title={t("export.title")}
           subtitle={t("export.subtitle")}
           className="mb-10"
@@ -92,9 +92,9 @@ const ExportSection = () => {
 
           <div className="grid grid-cols-3 gap-4 md:gap-8 border-t border-white/10 pt-8">
             {[
-              { count: 8, label: "Countries Served", icon: Globe },
-              { count: 5, label: "Continents", icon: TrendingUp },
-              { count: 24, label: "Support", suffix: "/7", icon: Users }
+              { count: 8, label: t("export.stats.countries.label"), icon: Globe },
+              { count: 5, label: t("export.stats.continents.label"), icon: TrendingUp },
+              { count: 24, label: t("export.stats.support.label"), suffix: "/7", icon: Users }
             ].map((stat, i) => {
               const Icon = stat.icon;
               return (

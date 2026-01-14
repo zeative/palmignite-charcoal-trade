@@ -48,8 +48,7 @@ const HeroSection = () => {
               </div>
 
               <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Your trusted partner for the perfect sear. <br />
-                Delivering world-class BBQ charcoal from Yogyakarta to pitmasters worldwide.
+                {t("hero.subtitle")}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -63,7 +62,7 @@ const HeroSection = () => {
                   }
                   className="border-2 border-gold/30 text-gold hover:bg-gold/10"
                 >
-                  Request Call
+                  {t("hero.cta")}
                 </Button>
               </div>
 
@@ -72,19 +71,19 @@ const HeroSection = () => {
                   <p className="text-3xl md:text-4xl font-extrabold text-gold">
                     <CountUp end={3} duration={3} />+
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">Supplier Partners Indonesia</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t("hero.stats.suppliers.label")}</p>
                 </div>
                 <div>
                   <p className="text-3xl md:text-4xl font-extrabold text-gold">
                     <CountUp end={10} duration={5} />+
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">Years Supplier Experiences</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t("hero.stats.experience.label")}</p>
                 </div>
                 <div>
                   <p className="text-3xl md:text-4xl font-extrabold text-gold">
                     <CountUp end={95} duration={5} />%
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">Quality</p>
+                  <p className="text-sm text-muted-foreground mt-1">{t("hero.stats.quality.label")}</p>
                 </div>
               </div>
             </div>
@@ -100,8 +99,8 @@ const HeroSection = () => {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">Premium Quality</h3>
-                        <p className="text-sm text-muted-foreground">Certified international standards</p>
+                        <h3 className="font-semibold text-foreground mb-1">{t("hero.features.quality.title")}</h3>
+                        <p className="text-sm text-muted-foreground">{t("hero.features.quality.desc")}</p>
                       </div>
                     </div>
 
@@ -117,8 +116,8 @@ const HeroSection = () => {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">Global Export</h3>
-                        <p className="text-sm text-muted-foreground">Shipping 15+ countries</p>
+                        <h3 className="font-semibold text-foreground mb-1">{t("hero.features.export.title")}</h3>
+                        <p className="text-sm text-muted-foreground">{t("hero.features.export.desc")}</p>
                       </div>
                     </div>
 
@@ -134,16 +133,16 @@ const HeroSection = () => {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">Trusted Supplier</h3>
-                        <p className="text-sm text-muted-foreground">Reliable & consistent delivery</p>
+                        <h3 className="font-semibold text-foreground mb-1">{t("hero.features.supplier.title")}</h3>
+                        <p className="text-sm text-muted-foreground">{t("hero.features.supplier.desc")}</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="absolute -bottom-6 -right-6 glass-card p-6 rounded-xl backdrop-blur-xl bg-gold/10 border border-gold/20 shadow-gold">
-                  <p className="text-sm text-gold font-semibold">#1 Charchoal Trader </p>
-                  <p className="text-xs text-muted-foreground mt-1">Leading Barbeque in Indonesia</p>
+                  <p className="text-sm text-gold font-semibold">{t("hero.badge.title")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("hero.badge.desc")}</p>
                 </div>
               </div>
             </div>

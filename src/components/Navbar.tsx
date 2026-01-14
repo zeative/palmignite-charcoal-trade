@@ -72,9 +72,9 @@ const Navbar = () => {
   };
 
   const languages = [
-    { code: "en", name: "English" },
-    { code: "id", name: "Bahasa Indonesia" },
-    { code: "ko", name: "한국어" },
+    { code: "en", name: t("nav.languages.en") },
+    { code: "id", name: t("nav.languages.id") },
+    { code: "ko", name: t("nav.languages.ko") },
   ];
 
   return (
@@ -84,8 +84,8 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             <div onClick={() => scrollToSection("home")} className="cursor-pointer flex items-center gap-3">
               <img src="/web-app-manifest-192x192.png" className="w-7 rounded-full" />
-              <h1 className="text-gold font-bold text-xl hidden lg:block">Palmignite Charcoal</h1>
-              <h1 className="text-gold font-bold text-xl lg:hidden">Palmignite Charcoal</h1>
+              <h1 className="text-gold font-bold text-xl hidden lg:block">{t("nav.brand")}</h1>
+              <h1 className="text-gold font-bold text-xl lg:hidden">{t("nav.brand")}</h1>
             </div>
 
             <div ref={navRef} className="relative hidden md:flex items-center gap-4">

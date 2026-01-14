@@ -34,30 +34,30 @@ const ProductsSection = () => {
 
   const products = [
     {
-      grade: "Grade A",
+      grade: t("products.gradeA.title"),
       image: coconutImage,
-      description: "Premium choice for professional grilling and long-lasting heat.",
+      description: t("products.gradeA.desc"),
       specs: [
-        { label: "Ash Content", value: "Max 5%", icon: Scale },
-        { label: "Calories", value: "Above 7000 Kcal", icon: Flame },
-        { label: "Fix Carbon", value: "Min 75%", icon: Zap },
-        { label: "Moisture", value: "Max 5%", icon: Droplets },
-        { label: "Volatile", value: "Max 15%", icon: Wind },
-        { label: "Time Burn", value: "7-8 Hours", icon: Timer },
+        { label: t("products.specs.ash.label"), value: "Max 5%", icon: Scale },
+        { label: t("products.specs.calories.label"), value: "Above 7000 Kcal", icon: Flame },
+        { label: t("products.specs.carbon.label"), value: "Min 75%", icon: Zap },
+        { label: t("products.specs.moisture.label"), value: "Max 5%", icon: Droplets },
+        { label: t("products.specs.volatile.label"), value: "Max 15%", icon: Wind },
+        { label: t("products.specs.time.label"), value: "7-8 Hours", icon: Timer },
       ],
       highlight: true,
     },
     {
-      grade: "Grade A+",
+      grade: t("products.gradeAplus.title"),
       image: briquetteImage,
-      description: "Balanced composition for versatile usage and consistent performance.",
+      description: t("products.gradeAplus.desc"),
       specs: [
-        { label: "Ash Content", value: "8-10%", icon: Scale },
-        { label: "Calories", value: "6500 - 7500 Kcal", icon: Flame },
-        { label: "Fixed Carbon", value: "70-75%", icon: Zap },
-        { label: "Moisture", value: "Max 5%", icon: Droplets },
-        { label: "Volatile", value: "15% - 18%", icon: Wind },
-        { label: "Time Burn", value: "6-7 Hours", icon: Timer },
+        { label: t("products.specs.ash.label"), value: "8-10%", icon: Scale },
+        { label: t("products.specs.calories.label"), value: "6500 - 7500 Kcal", icon: Flame },
+        { label: t("products.specs.carbon.label"), value: "70-75%", icon: Zap },
+        { label: t("products.specs.moisture.label"), value: "Max 5%", icon: Droplets },
+        { label: t("products.specs.volatile.label"), value: "15% - 18%", icon: Wind },
+        { label: t("products.specs.time.label"), value: "6-7 Hours", icon: Timer },
       ],
       highlight: false,
     },
@@ -73,9 +73,9 @@ const ProductsSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <SectionHeader 
-          label="Technical Specifications"
+          label={t("products.label")}
           title={t("products.title")}
-          subtitle="Discover the precise standards of our premium charcoal grades."
+          subtitle={t("products.subtitle")}
         />
 
         <div className="space-y-24 max-w-6xl mx-auto">
@@ -99,7 +99,7 @@ const ProductsSection = () => {
                   
                   {product.highlight && (
                     <div className="absolute top-4 left-4 bg-gold text-charcoal text-xs font-bold px-4 py-2 rounded-full shadow-lg">
-                      BEST SELLER
+                      {t("products.badge.bestseller")}
                     </div>
                   )}
                 </div>
@@ -138,7 +138,7 @@ const ProductsSection = () => {
                     onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                     className="group inline-flex items-center gap-2 text-gold font-bold text-lg hover:text-white transition-colors"
                   >
-                    Request Quote for {product.grade}
+                    {t("products.cta")} {product.grade}
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -149,9 +149,7 @@ const ProductsSection = () => {
 
         <div className="mt-24 text-center">
           <p className="text-gray-500 text-sm">
-            * Specifications may vary slightly depending on the raw material batch. 
-            <br className="hidden md:block" />
-            Contact us for the most up-to-date lab reports.
+            {t("products.disclaimer")}
           </p>
         </div>
       </div>

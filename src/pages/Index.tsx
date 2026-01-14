@@ -1,4 +1,3 @@
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -12,22 +11,20 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const Index = () => {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-background font-[Onest]">
-        <Navbar />
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <ProductsSection />
+    <div className="min-h-screen bg-background font-[Onest]">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <ProductsSection />
 
-          <ExportSection />
-          <GallerySection />
-          <ContactSection />
-        </main>
-        <Footer />
-        <FloatingWhatsApp />
-      </div>
-    </LanguageProvider>
+        <ExportSection />
+        <GallerySection />
+        <ContactSection />
+      </main>
+      <Footer />
+      <FloatingWhatsApp />
+    </div>
   );
 };
 

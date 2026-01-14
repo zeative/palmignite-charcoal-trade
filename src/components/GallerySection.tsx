@@ -40,26 +40,26 @@ const GallerySection = () => {
   const images = [
     { 
       src: galleryEfficient, 
-      alt: "Efficient Production Process", 
-      category: "Production",
+      alt: t("gallery.images.efficient.alt"), 
+      category: t("gallery.categories.production"),
       className: "md:col-span-2 md:row-span-2" 
     },
     { 
       src: galleryTeams, 
-      alt: "Our Factory Teams", 
-      category: "Team",
+      alt: t("gallery.images.teams.alt"), 
+      category: t("gallery.categories.team"),
       className: "md:col-span-2 md:row-span-1" 
     },
     { 
       src: galleryProduct, 
-      alt: "Premium Barbecue Charcoal", 
-      category: "Product",
+      alt: t("gallery.images.product.alt"), 
+      category: t("gallery.categories.product"),
       className: "md:col-span-1 md:row-span-1" 
     },
     { 
       src: gallerySafety, 
-      alt: "Safe Stuffing Container", 
-      category: "Logistics",
+      alt: t("gallery.images.safety.alt"), 
+      category: t("gallery.categories.logistics"),
       className: "md:col-span-1 md:row-span-1" 
     },
   ];
@@ -81,7 +81,7 @@ const GallerySection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <SectionHeader 
-          label="Our Gallery"
+          label={t("gallery.label")}
           title={t("gallery.title")}
           subtitle={t("gallery.subtitle")}
           className="mb-12"
@@ -126,7 +126,7 @@ const GallerySection = () => {
 
         <div className="text-center mt-12">
           <p className="text-gray-500 text-sm">
-            Explore our world-class facilities and premium products.
+            {t("gallery.explore")}
           </p>
         </div>
       </div>
@@ -163,7 +163,7 @@ const GallerySection = () => {
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
             <p className="text-sm text-gray-400 flex items-center gap-2">
               <ZoomIn className="w-4 h-4" />
-              Click image to zoom
+              {t("gallery.zoom")}
             </p>
           </div>
         </div>

@@ -55,16 +55,16 @@ const ContactSection = () => {
 
     try {
       await emailjs.sendForm(
-        "service_91q839e",
-        "template_8l4j7uo",
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formRef.current,
-        "user_mJ3q7Xk8y9z0pL1n2"
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
-      toast.success("Message sent successfully!");
+      toast.success(t("contact.success"));
       formRef.current.reset();
       setPhoneNumber("");
     } catch (error) {
-      toast.error("Failed to send message. Please try again.");
+      toast.error(t("contact.error"));
       console.error("EmailJS Error:", error);
     } finally {
       setIsSubmitting(false);
@@ -96,7 +96,7 @@ const ContactSection = () => {
                         type="text"
                         required
                         className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition-all outline-none"
-                        placeholder="John Doe"
+                        placeholder={t("contact.form.namePlaceholder")}
                       />
                     </div>
                     <div className="space-y-2">
@@ -109,7 +109,7 @@ const ContactSection = () => {
                         type="email"
                         required
                         className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition-all outline-none"
-                        placeholder="john@example.com"
+                        placeholder={t("contact.form.emailPlaceholder")}
                       />
                     </div>
                   </div>
@@ -125,7 +125,7 @@ const ContactSection = () => {
                       value={phoneNumber}
                       onChange={handlePhoneChange}
                       className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition-all outline-none"
-                      placeholder="123-456-7890"
+                      placeholder={t("contact.form.phonePlaceholder")}
                     />
                   </div>
 
@@ -139,7 +139,7 @@ const ContactSection = () => {
                       required
                       rows={4}
                       className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:border-gold/50 focus:ring-1 focus:ring-gold/50 transition-all outline-none resize-none"
-                      placeholder="Tell us about your needs..."
+                      placeholder={t("contact.form.messagePlaceholder")}
                     />
                   </div>
 
@@ -170,9 +170,7 @@ const ContactSection = () => {
                   <div>
                     <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-1">{t("contact.info.visit")}</h3>
                     <p className="text-sm text-white leading-relaxed font-medium">
-                      Jl. Wates Km 3, Ngestiharjo, Kasihan, Bantul,
-                      <br />
-                      Yogyakarta 55182, Indonesia
+                      {t("contact.info.address")}
                     </p>
                   </div>
                 </div>

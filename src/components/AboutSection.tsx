@@ -43,23 +43,23 @@ const AboutSection = () => {
   const features = [
     {
       icon: Award,
-      title: "Transparency",
-      description: "Clear reports and documentation for every shipment.",
+      title: t("about.features.transparency.title"),
+      description: t("about.features.transparency.desc"),
     },
     {
       icon: Globe,
-      title: "Consistency",
-      description: "Monitored quality for reliable performance.",
+      title: t("about.features.consistency.title"),
+      description: t("about.features.consistency.desc"),
     },
     {
       icon: Shield,
-      title: "Sustainability",
-      description: "100% natural coconut shells, eco-friendly.",
+      title: t("about.features.sustainability.title"),
+      description: t("about.features.sustainability.desc"),
     },
     {
       icon: TrendingUp,
-      title: "Growth",
-      description: "Expanding operations to meet global demand.",
+      title: t("about.features.growth.title"),
+      description: t("about.features.growth.desc"),
     },
   ];
 
@@ -71,7 +71,7 @@ const AboutSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative">
-        <SectionHeader label="About Us" title={t("about.title")} subtitle={t("about.subtitle")} />
+        <SectionHeader label={t("about.label")} title={t("about.title")} subtitle={t("about.subtitle")} />
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
@@ -90,8 +90,8 @@ const AboutSection = () => {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
-                <p className="text-white font-semibold text-lg">World-Class Facility</p>
-                <p className="text-gray-300 text-sm">Yogyakarta, Indonesia</p>
+                <p className="text-white font-semibold text-lg">{t("about.facility.title")}</p>
+                <p className="text-gray-300 text-sm">{t("about.facility.location")}</p>
               </div>
             </div>
           </div>
