@@ -1,8 +1,10 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useEffect, useRef, useState } from "react";
-import { Flame, Timer, Scale, Zap, Droplets, Wind } from "lucide-react";
+import { Flame, Timer, Scale, Zap, Droplets, Wind, ArrowRight } from "lucide-react";
 import { SectionHeader } from "./ui/corporate/SectionHeader";
 import { CorporateCard } from "./ui/corporate/CorporateCard";
+import coconutImage from "@/assets/product-coconut.jpg";
+import briquetteImage from "@/assets/product-briquette.jpg";
 
 const ProductsSection = () => {
   const { t } = useLanguage();
@@ -33,6 +35,7 @@ const ProductsSection = () => {
   const products = [
     {
       grade: "Grade A",
+      image: coconutImage,
       description: "Premium choice for professional grilling and long-lasting heat.",
       specs: [
         { label: "Ash Content", value: "Max 5%", icon: Scale },
@@ -46,6 +49,7 @@ const ProductsSection = () => {
     },
     {
       grade: "Grade A+",
+      image: briquetteImage,
       description: "Balanced composition for versatile usage and consistent performance.",
       specs: [
         { label: "Ash Content", value: "8-10%", icon: Scale },
@@ -74,67 +78,76 @@ const ProductsSection = () => {
           subtitle="Discover the precise standards of our premium charcoal grades."
         />
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="space-y-24 max-w-6xl mx-auto">
           {products.map((product, index) => (
             <div
               key={index}
-              className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+              className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-1000 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+              } ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
-              <CorporateCard 
-                className={`h-full p-8 flex flex-col relative group ${product.highlight ? 'border-gold/30 bg-gold/5' : 'border-white/10 bg-white/5'}`}
-                hoverEffect={true}
-              >
-                {product.highlight && (
-                  <div className="absolute top-0 right-0 bg-gold text-charcoal text-xs font-bold px-3 py-1 rounded-bl-lg">
-                    BEST SELLER
-                  </div>
-                )}
+              {/* Image Side */}
+              <div className="w-full lg:w-1/2 group">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3]">
+                  <img 
+                    src={product.image} 
+                    alt={product.grade} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                  
+                  {product.highlight && (
+                    <div className="absolute top-4 left-4 bg-gold text-charcoal text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                      BEST SELLER
+                    </div>
+                  )}
+                </div>
+              </div>
 
-                <div className="mb-8 text-center">
-                  <h3 className={`font-[Onest] text-4xl font-bold mb-3 ${product.highlight ? 'text-gold' : 'text-white'}`}>
+              {/* Content Side */}
+              <div className="w-full lg:w-1/2 space-y-8">
+                <div>
+                  <h3 className="font-[Onest] text-4xl md:text-5xl font-bold text-white mb-4">
                     {product.grade}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto">
+                  <p className="text-gray-400 text-lg leading-relaxed">
                     {product.description}
                   </p>
                 </div>
 
-                <div className="space-y-4 flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {product.specs.map((spec, i) => {
                     const Icon = spec.icon;
                     return (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-black/20 border border-white/5 hover:border-gold/20 transition-colors group/item">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-md ${product.highlight ? 'bg-gold/10 text-gold' : 'bg-white/5 text-gray-400 group-hover/item:text-gold group-hover/item:bg-gold/10'} transition-colors`}>
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <span className="text-sm text-gray-300 font-medium">{spec.label}</span>
+                      <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-gold/20 hover:bg-gold/5 transition-all duration-300 group/item">
+                        <div className="p-2.5 rounded-lg bg-black/40 text-gold group-hover/item:scale-110 transition-transform">
+                          <Icon className="w-5 h-5" />
                         </div>
-                        <span className="text-sm font-bold text-white tracking-wide">{spec.value}</span>
+                        <div>
+                          <p className="text-xs text-gray-500 uppercase tracking-wider font-medium mb-0.5">{spec.label}</p>
+                          <p className="text-white font-bold text-base">{spec.value}</p>
+                        </div>
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-white/10 text-center">
+                <div className="pt-4">
                   <button 
                     onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                    className={`w-full py-3 rounded-lg font-bold text-sm transition-all duration-300 ${
-                      product.highlight 
-                        ? 'bg-gold text-charcoal hover:bg-gold-dark shadow-gold hover:shadow-gold-lg' 
-                        : 'bg-white/10 text-white hover:bg-white/20 hover:text-gold'
-                    }`}
+                    className="group inline-flex items-center gap-2 text-gold font-bold text-lg hover:text-white transition-colors"
                   >
                     Request Quote for {product.grade}
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
-              </CorporateCard>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-24 text-center">
           <p className="text-gray-500 text-sm">
             * Specifications may vary slightly depending on the raw material batch. 
             <br className="hidden md:block" />

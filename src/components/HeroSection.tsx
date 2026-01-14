@@ -34,7 +34,7 @@ const HeroSection = () => {
       <div className="hidden lg:block absolute top-20 right-20 w-96 h-96 bg-gold/5 rounded-full blur-3xl animate-pulse z-10" />
       <div className="hidden lg:block absolute bottom-20 left-20 w-80 h-80 bg-gold/5 rounded-full blur-3xl animate-pulse z-10" style={{ animationDelay: "1s" }} />
 
-      <div className="relative z-10 container mx-auto px-4 py-12 sm:py-16 lg:py-20">
+      <div className="relative z-10 container mx-auto px-4 py-12 sm:py-16 lg:py-20 mt-5">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-6 items-center">
             <div className="text-center lg:text-left space-y-8 animate-fade-in-left">

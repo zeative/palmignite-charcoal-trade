@@ -183,8 +183,8 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-white mb-1">Email Us</h3>
-                    <a href="mailto:info@palmmignite.com" className="text-sm text-gray-400 hover:text-gold transition-colors">
-                      info@palmmignite.com
+                    <a href="mailto:palmignitecharcoaltrade@gmail.com" className="text-sm text-gray-400 hover:text-gold transition-colors">
+                      palmignitecharcoaltrade@gmail.com
                     </a>
                   </div>
                 </div>

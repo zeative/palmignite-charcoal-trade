@@ -1,10 +1,11 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState, useEffect, useRef } from "react";
-import { X, ZoomIn } from "lucide-react";
+import { X, ZoomIn, ArrowUpRight } from "lucide-react";
 import galleryEfficient from "@/assets/gallery-efficient.jpg";
 import galleryTeams from "@/assets/gallery-teams.jpg";
 import galleryProduct from "@/assets/gallery-product.jpg";
 import gallerySafety from "@/assets/gallery-safety.jpg";
+import { SectionHeader } from "./ui/corporate/SectionHeader";
 
 const GallerySection = () => {
   const { t } = useLanguage();
@@ -37,10 +38,30 @@ const GallerySection = () => {
   }, []);
 
   const images = [
-    { src: galleryEfficient, alt: "Efficient Production Proces", category: "Production" },
-    { src: galleryTeams, alt: "Our Factory Teams", category: "Production" },
-    { src: galleryProduct, alt: "Premium Barbecue Charcoal", category: "Export" },
-    { src: gallerySafety, alt: "Safe Stuffing Container", category: "Security" },
+    { 
+      src: galleryEfficient, 
+      alt: "Efficient Production Process", 
+      category: "Production",
+      className: "md:col-span-2 md:row-span-2" 
+    },
+    { 
+      src: galleryTeams, 
+      alt: "Our Factory Teams", 
+      category: "Team",
+      className: "md:col-span-2 md:row-span-1" 
+    },
+    { 
+      src: galleryProduct, 
+      alt: "Premium Barbecue Charcoal", 
+      category: "Product",
+      className: "md:col-span-1 md:row-span-1" 
+    },
+    { 
+      src: gallerySafety, 
+      alt: "Safe Stuffing Container", 
+      category: "Logistics",
+      className: "md:col-span-1 md:row-span-1" 
+    },
   ];
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -52,74 +73,76 @@ const GallerySection = () => {
   };
 
   return (
-    <section id="gallery" ref={sectionRef} className="py-16 md:py-20 bg-gradient-to-b from-background to-secondary relative">
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(hsl(var(--gold) / 0.1) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--gold) / 0.1) 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
-          }}
-        />
+    <section id="gallery" ref={sectionRef} className="py-20 md:py-28 bg-background relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[120px] opacity-20" />
       </div>
 
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-10 max-w-3xl mx-auto">
-          <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-            <p className="text-gold font-semibold mb-3 tracking-wide uppercase text-sm">Gallery</p>
-            <h2 className="font-[Onest] text-4xl md:text-5xl font-bold text-foreground mb-4">{t("gallery.title")}</h2>
-            <p className="text-muted-foreground text-lg">{t("gallery.subtitle")}</p>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 relative z-10">
+        <SectionHeader 
+          label="Our Gallery"
+          title={t("gallery.title")}
+          subtitle={t("gallery.subtitle")}
+          className="mb-12"
+        />
 
-        <div className="grid md:grid-cols-4 gap-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto auto-rows-[200px] md:auto-rows-[250px]">
           {images.map((image, index) => (
-            <div key={index} className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} style={{ transitionDelay: `${index * 150}ms` }}>
-              <div
-                className="group relative overflow-hidden rounded-2xl cursor-pointer aspect-[4/3]"
-                onClick={() => {
-                  setSelectedImage(image.src);
-                  setIsZoomed(false);
-                }}
-              >
-                <img src={image.src} alt={image.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div 
+              key={index} 
+              className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-white/10 bg-white/5 transition-all duration-700 ${image.className} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+              style={{ transitionDelay: `${index * 150}ms` }}
+              onClick={() => {
+                setSelectedImage(image.src);
+                setIsZoomed(false);
+              }}
+            >
+              <img 
+                src={image.src} 
+                alt={image.alt} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 transition-opacity duration-300" />
 
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-gold/20 text-gold border border-gold/30 backdrop-blur-sm mb-3">{image.category}</span>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{image.alt}</h3>
-                    <div className="flex items-center gap-2 text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ZoomIn className="w-4 h-4" />
-                      <span className="text-sm font-medium">Click to enlarge</span>
-                    </div>
+              <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                <div className="flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                    <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>
-
-                <div className="absolute inset-0 border-2 border-gold/0 group-hover:border-gold/40 rounded-2xl transition-all duration-300" />
+                
+                <div className="transform translate-y-0 transition-transform duration-300">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gold text-charcoal mb-2">
+                    {image.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-white leading-tight">{image.alt}</h3>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-muted-foreground">Experience our commitment to quality at every stage of production</p>
+          <p className="text-gray-500 text-sm">
+            Explore our world-class facilities and premium products.
+          </p>
         </div>
       </div>
 
       {selectedImage && (
-        <div className="fixed inset-0 bg-charcoal/98 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in" onClick={() => setSelectedImage(null)}>
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in" onClick={() => setSelectedImage(null)}>
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-foreground hover:text-gold bg-card/80 backdrop-blur-sm rounded-full transition-all hover:scale-110 shadow-lg z-10"
+            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-white hover:text-gold bg-white/10 backdrop-blur-sm rounded-full transition-all hover:scale-110 z-50"
           >
             <X className="w-6 h-6" />
           </button>
 
           <div
             ref={imgContainerRef}
-            className="relative max-w-7xl max-h-[90vh] animate-scale-in overflow-hidden cursor-grab active:cursor-grabbing"
+            className="relative max-w-7xl max-h-[90vh] animate-scale-in overflow-hidden cursor-grab active:cursor-grabbing rounded-lg border border-white/10 shadow-2xl"
             onClick={(e) => {
               e.stopPropagation();
               setIsZoomed(!isZoomed);
@@ -130,15 +153,18 @@ const GallerySection = () => {
             <img
               src={selectedImage}
               alt="Gallery"
-              className={`max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl transition-transform duration-300 ${isZoomed ? "scale-150 cursor-grab" : "scale-100 cursor-zoom-in"}`}
+              className={`max-w-full max-h-[90vh] object-contain transition-transform duration-300 ${isZoomed ? "scale-150 cursor-grab" : "scale-100 cursor-zoom-in"}`}
               style={{
                 transform: isZoomed ? `scale(1.5) translate(${offset.x / 3}%, ${offset.y / 3}%)` : "scale(1) translate(0, 0)",
               }}
             />
           </div>
 
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 glass-card px-6 py-3 rounded-full backdrop-blur-xl bg-card/60 border border-glass-border">
-            <p className="text-sm text-muted-foreground">Click anywhere to close</p>
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
+            <p className="text-sm text-gray-400 flex items-center gap-2">
+              <ZoomIn className="w-4 h-4" />
+              Click image to zoom
+            </p>
           </div>
         </div>
       )}
