@@ -13,13 +13,12 @@ const HeroSection = () => {
       id="home"
       className="
         relative
-        min-h-[85vh]
+        min-h-[100vh]
         flex
         items-center
         w-full
         max-w-full
         overflow-hidden
-        py-10
       "
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
