@@ -40,9 +40,9 @@ export const BlogPost = () => {
   if (!post) {
     return (
       <div className="min-h-screen pt-24 flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Post not found</h1>
+        <h1 className="text-3xl font-bold">Post not found</h1>
         <Link to="/blog">
-          <Button variant="outline">Back to Blog</Button>
+          <Button variant="outline">find other articles</Button>
         </Link>
       </div>
     );
@@ -74,7 +74,7 @@ export const BlogPost = () => {
           <div className="flex flex-wrap items-center gap-6 text-muted-foreground border-b border-border/50 pb-8">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
-              <span className="font-medium">Admin Palmignite Charcoal Trade</span>
+              <span className="font-medium">Palmignite Charcoal Trade</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />

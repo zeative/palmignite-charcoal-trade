@@ -19,7 +19,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     align === "left" ? "text-left mx-0" : align === "right" ? "text-right ml-auto" : "text-center mx-auto";
 
   return (
-    <div className={`mb-12 max-w-3xl ${alignClass} ${className}`}>
+    <div className={`mb-12 max-w-4xl ${alignClass} ${className}`}>
       {label && (
         <p className="text-gold font-semibold mb-3 tracking-widest uppercase text-xs md:text-sm">
           {label}

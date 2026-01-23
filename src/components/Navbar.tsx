@@ -57,21 +57,17 @@ const Navbar = () => {
   useEffect(() => {
     if (!navRef.current || !underlineRef.current) return;
 
-    // If not on home page and activeSection is 'blog', move underline to blog link
-    // But we don't have a 'blog' data-id in the loop.
-    // Let's handle 'blog' separately or add it to the logic.
-    
     let targetBtn: HTMLElement | null = null;
-    
-    if (location.pathname.startsWith('/blog')) {
-       targetBtn = navRef.current.querySelector<HTMLAnchorElement>(`a[href="/blog"]`);
+
+    if (location.pathname.startsWith("/blog")) {
+      targetBtn = navRef.current.querySelector(`a[href="/blog"]`);
     } else if (isHomePage) {
-       targetBtn = navRef.current.querySelector<HTMLButtonElement>(`[data-id="${activeSection}"]`);
+      targetBtn = navRef.current.querySelector(`[data-id="${activeSection}"]`);
     }
 
     if (!targetBtn) {
-        underlineRef.current.style.transform = `scaleX(0)`;
-        return;
+      underlineRef.current.style.transform = `scaleX(0)`;
+      return;
     }
 
     const navRect = navRef.current.getBoundingClientRect();
@@ -79,7 +75,7 @@ const Navbar = () => {
 
     underlineRef.current.style.width = `${btnRect.width}px`;
     underlineRef.current.style.transform = `translateX(${btnRect.left - navRect.left}px) scaleX(1)`;
-  }, [activeSection, location.pathname, isHomePage]);
+  }, [activeSection, location.pathname, isHomePage, language]); // tambahin language di dependency
 
   const scrollToSection = (id: string) => {
     if (!isHomePage) {
@@ -96,19 +92,30 @@ const Navbar = () => {
     setTimeout(initObserver, 1000);
   };
 
-  // Handle scroll after navigation
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langBtnRef.current && !langBtnRef.current.contains(e.target as Node) && !(e.target as HTMLElement).closest(".lang-dropdown")) {
+        setShowLangDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   useEffect(() => {
     if (isHomePage && location.state && (location.state as any).scrollTo) {
       const scrollTo = (location.state as any).scrollTo;
       setTimeout(() => {
         scrollToSection(scrollTo);
-        // Clear state
         window.history.replaceState({}, document.title);
       }, 100);
     }
   }, [isHomePage, location]);
 
-  const languages = [
+  type Language = "en" | "id" | "ko";
+
+  const languages: { code: Language; name: string }[] = [
     { code: "en", name: t("nav.languages.en") },
     { code: "id", name: t("nav.languages.id") },
     { code: "ko", name: t("nav.languages.ko") },
@@ -121,31 +128,39 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             <div onClick={() => scrollToSection("home")} className="cursor-pointer flex items-center gap-3">
               <img src="/web-app-manifest-192x192.png" className="w-7 rounded-full" />
-              <h1 className="text-gold font-bold text-xl hidden lg:block">{t("nav.brand")}</h1>
-              <h1 className="text-gold font-bold text-xl lg:hidden">{t("nav.brand")}</h1>
+              <h1 className="text-gold font-bold text-xl">{t("nav.brand")}</h1>
             </div>
 
+            {/* DESKTOP MENU */}
             <div ref={navRef} className="relative hidden md:flex items-center gap-4">
-              {menuItems.map((id) => (
-                <button key={id} data-id={id} onClick={() => scrollToSection(id)} className={`nav-link ${activeSection === id && isHomePage ? "nav-active" : ""}`}>
-                  {t(`nav.${id}`)}
-                </button>
-              ))}
-              <Link to="/blog" className={`nav-link ${location.pathname.startsWith('/blog') ? "nav-active" : ""}`}>
+              {menuItems
+                .filter((id) => id !== "contact")
+                .map((id) => (
+                  <button key={id} data-id={id} onClick={() => scrollToSection(id)} className={`nav-link ${activeSection === id && isHomePage ? "nav-active" : ""}`}>
+                    {t(`nav.${id}`)}
+                  </button>
+                ))}
+
+              <Link to="/blog" className={`nav-link ${location.pathname.startsWith("/blog") ? "nav-active" : ""}`}>
                 Blog
               </Link>
+
+              <button data-id="contact" onClick={() => scrollToSection("contact")} className={`nav-link ${activeSection === "contact" && isHomePage ? "nav-active" : ""}`}>
+                {t("nav.contact")}
+              </button>
+
               <span ref={underlineRef} className="nav-underline" />
             </div>
 
+            {/* LANGUAGE BUTTON */}
             <div className="hidden md:block">
               <button
                 ref={langBtnRef}
                 onClick={() => {
                   if (!langBtnRef.current) return;
                   const rect = langBtnRef.current.getBoundingClientRect();
-
                   setLangPos({
-                    top: rect.bottom + 8,
+                    top: rect.bottom + 8, // pakai bottom + offset biar pasti di bawah tombol
                     right: window.innerWidth - rect.right,
                   });
 
@@ -166,53 +181,49 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* 🌍 LANGUAGE DROPDOWN (DI ATAS NAV, GA KECLIP) */}
       {showLangDropdown && (
         <div
-          className="hidden md:block fixed z-[9999] w-48 bg-charcoal/85 border border-border rounded-lg overflow-hidden shadow-xl"
-          style={{ top: langPos.top, right: langPos.right }}
+          className="fixed z-[9999] bg-charcoal border border-white/10 rounded-lg shadow-xl overflow-hidden lang-dropdown"
+          style={{
+            top: langPos.top, // nanti setLangPos sudah pakai rect.bottom + offset
+            right: langPos.right,
+          }}
         >
-          {languages.map((lang, index) => (
+          {languages.map((lang, idx) => (
             <button
               key={lang.code}
               onClick={() => {
-                setLanguage(lang.code as any);
+                setLanguage(lang.code as "en" | "id" | "ko"); // type-safe
                 setShowLangDropdown(false);
               }}
-              className="block w-full text-left px-4 py-3.5 text-sm hover:bg-charcoal/95 relative last:border-b-0"
+              className={`block w-full text-left px-5 py-3 text-sm rounded-sm hover:bg-white/10 ${language === lang.code ? "text-gold" : "text-white"} ${idx !== languages.length - 1 ? "border-b border-white/10" : ""}`} // border tipis kecuali terakhir
             >
-              <span className="block mx-2">{lang.name}</span>
-              {index !== languages.length - 1 && <span className="absolute left-2 right-2 bottom-0 border-b border-border"></span>}
+              {lang.name}
             </button>
           ))}
         </div>
       )}
 
+      {/* MOBILE MENU */}
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden">
+        <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm">
           <div className="absolute top-20 left-0 w-full bg-charcoal p-6 space-y-4">
-            {menuItems.map((id) => (
-              <button key={id} onClick={() => scrollToSection(id)} className={`block w-full text-left nav-link ${activeSection === id && isHomePage ? "nav-active" : ""}`}>
-                {t(`nav.${id}`)}
-              </button>
-            ))}
-            <Link to="/blog" onClick={() => setIsOpen(false)} className={`block w-full text-left nav-link ${location.pathname.startsWith('/blog') ? "nav-active" : ""}`}>
+            {menuItems
+              .filter((id) => id !== "contact")
+              .map((id) => (
+                <button key={id} onClick={() => scrollToSection(id)} className={`block w-full text-left nav-link ${activeSection === id && isHomePage ? "nav-active" : ""}`}>
+                  {t(`nav.${id}`)}
+                </button>
+              ))}
+
+            <Link to="/blog" onClick={() => setIsOpen(false)} className={`block w-full text-left nav-link ${location.pathname.startsWith("/blog") ? "nav-active" : ""}`}>
               Blog
             </Link>
 
-            <div className="pt-4 border-t border-border">
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => {
-                    setLanguage(lang.code as any);
-                    setIsOpen(false);
-                  }}
-                  className="block w-full text-left px-2 py-2 text-sm hover:bg-secondary"
-                >
-                  {lang.name}
-                </button>
-              ))}
-            </div>
+            <button onClick={() => scrollToSection("contact")} className={`block w-full text-left nav-link ${activeSection === "contact" && isHomePage ? "nav-active" : ""}`}>
+              {t("nav.contact")}
+            </button>
           </div>
         </div>
       )}
@@ -225,17 +236,10 @@ const Navbar = () => {
           color: var(--foreground);
           padding: 8px 10px;
           border-radius: 6px;
-          transition: background-color 0.3s ease, color 0.3s ease;
         }
-
-        .nav-link:hover {
-          background-color: "rgba(212, 175, 55, 0.12)";
-        }
-
         .nav-active {
           color: #d4af37;
         }
-
         .nav-underline {
           position: absolute;
           bottom: 0;
@@ -244,8 +248,10 @@ const Navbar = () => {
           background: #d4af37;
           transform-origin: left;
           transform: scaleX(0);
-          transition: transform 0.5s cubic-bezier(0.4,0,0.2,1),
-                      width 0.25s cubic-bezier(0.4,0,0.2,1);
+          transition:
+            width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          transition-delay: 0s, 0.2s;
         }
       `}</style>
     </>

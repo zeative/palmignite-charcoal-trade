@@ -32,13 +32,9 @@ export const BlogList = () => {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="text-center mb-12 space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-          Latest Updates
-        </h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-          Stay informed with our latest news, insights, and updates directly from our team.
-        </p>
+      <div className="text-center mb-12 space-y-1">
+        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">Latest Blog</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto text-lg">Stay updated with our news and stories.</p>
       </div>
 
       {posts.length === 0 ? (

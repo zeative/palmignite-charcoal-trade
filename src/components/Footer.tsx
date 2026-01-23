@@ -18,7 +18,16 @@ const Footer: React.FC<FooterProps> = ({ mobileMap }) => {
           {/* Company Information */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <img src="/web-app-manifest-192x192.png" className="w-12 h-12" alt="Palmignite Logo" />
+              <span onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}>
+                <img src="/web-app-manifest-192x192.png" className="w-12 h-12 cursor-pointer" alt="Palmignite Logo" />
+              </span>
+              <div>
+                <span onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}>
+
+                <h3 className="font-semibold text-sm cursor-pointer">PALMIGNITE CHARCOAL TRADE</h3>
+                <p className="text-[13px] text-muted-foreground cursor-pointer">Trade Export Company</p>
+                </span>
+              </div>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed font-light max-w-xs">{t("footer.company.desc")}</p>
 
@@ -55,15 +64,11 @@ const Footer: React.FC<FooterProps> = ({ mobileMap }) => {
               {[
                 { name: t("footer.nav.about"), id: "about" },
                 { name: t("footer.nav.specs"), id: "products" },
-                { name: t("footer.nav.legal"), href: "https://drive.google.com/drive/folders/1lCKQ2CY_7f2VKOeWnnzZzIF-zP9aFx0U?usp=drive_link" },
                 { name: t("footer.nav.terms"), id: "terms-conditions" },
                 { name: t("footer.nav.privacy"), id: "privacy-policy" },
               ].map((item, i) => (
                 <li key={i}>
                   <a
-                    href={item.href || `#${item.id}`}
-                    target={item.href ? "_blank" : undefined}
-                    rel={item.href ? "noopener noreferrer" : undefined}
                     className="text-muted-foreground hover:text-primary hover:translate-x-1 text-sm transition-all duration-300 flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-primary/20 group-hover:bg-primary transition-colors" />
@@ -94,7 +99,7 @@ const Footer: React.FC<FooterProps> = ({ mobileMap }) => {
                 <div className="flex flex-col">
                   <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">{t("footer.contact.email.label")}</span>
                   <a href="mailto:palmignitecharcoaltrade@gmail.com" className="font-medium hover:text-primary transition-colors">
-                    palmignitecharcoaltrade@gmail.com
+                    info@palmignitetrade.com
                   </a>
                 </div>
               </li>
@@ -134,7 +139,21 @@ const Footer: React.FC<FooterProps> = ({ mobileMap }) => {
             © 2025{" "}
             <span
               onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}
-              className="text-foreground font-medium hover:text-primary cursor-pointer transition-colors"
+              className="
+    relative inline-block cursor-pointer
+    text-primary font-medium
+
+    after:content-['']
+    after:absolute after:left-0 after:-bottom-0.5
+    after:h-[1px] after:w-full after:bg-current
+
+    after:scale-x-0
+    after:origin-right
+    after:transition-transform after:duration-300 after:ease-out
+
+    hover:after:origin-left
+    hover:after:scale-x-100
+  "
             >
               Palmignite Charcoal Trade
             </span>

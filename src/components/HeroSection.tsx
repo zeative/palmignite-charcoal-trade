@@ -41,15 +41,11 @@ const HeroSection = () => {
                 <h1 className="font-[poppins] text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold !leading-[1.1]">
                   <span className="text-foreground">{t("hero.title").split(" ").slice(0, 3).join(" ")}</span>
                   <br />
-                  <span className="text-gold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text animate-shimmer">
-                    {t("hero.title").split(" ").slice(3).join(" ")}
-                  </span>
+                  <span className="text-gold bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text animate-shimmer">{t("hero.title").split(" ").slice(3).join(" ")}</span>
                 </h1>
               </div>
 
-              <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                {t("hero.subtitle")}
-              </p>
+              <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">{t("hero.subtitle")}</p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button
@@ -60,13 +56,13 @@ const HeroSection = () => {
                       behavior: "smooth",
                     })
                   }
-                  className="border-2 border-gold/30 text-gold hover:bg-gold/10"
+                  className="border-2 border-gold/30 text-gold hover:text-gold hover:bg-gold/10"
                 >
                   {t("hero.cta")}
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-1">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-1 text-center lg:text-left">
                 <div>
                   <p className="text-3xl md:text-4xl font-extrabold text-gold">
                     <CountUp end={3} duration={3} />+
@@ -88,7 +84,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <div className="animate-fade-in-right">
+            <div className="hidden lg:block animate-fade-in-right">
               <div className="relative">
                 <div className="glass-card p-6 rounded-2xl backdrop-blur-xl bg-card/40 border border-glass-border shadow-2xl">
                   <div className="space-y-6">

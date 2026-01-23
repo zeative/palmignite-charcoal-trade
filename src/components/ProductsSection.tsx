@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { Flame, Timer, Scale, Zap, Droplets, Wind, ArrowRight } from "lucide-react";
 import { SectionHeader } from "./ui/corporate/SectionHeader";
 import { CorporateCard } from "./ui/corporate/CorporateCard";
-import coconutImage from "@/assets/product-coconut.jpg";
-import briquetteImage from "@/assets/product-briquette.jpg";
+import coconutImage from "@/assets/product-coconut.png";
+import briquetteImage from "@/assets/product-briquette.png";
 
 const ProductsSection = () => {
   const { t } = useLanguage();
@@ -46,6 +46,7 @@ const ProductsSection = () => {
         { label: t("products.specs.time.label"), value: "7-8 Hours", icon: Timer },
       ],
       highlight: true,
+      showShapeNote: true,
     },
     {
       grade: t("products.gradeAplus.title"),
@@ -60,6 +61,7 @@ const ProductsSection = () => {
         { label: t("products.specs.time.label"), value: "6-7 Hours", icon: Timer },
       ],
       highlight: false,
+      showShapeNote: true,
     },
   ];
 
@@ -72,48 +74,34 @@ const ProductsSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <SectionHeader 
-          label={t("products.label")}
-          title={t("products.title")}
-          subtitle={t("products.subtitle")}
-        />
+        <SectionHeader label={t("products.label")} title={t("products.title")} subtitle={t("products.subtitle")} />
 
         <div className="space-y-24 max-w-6xl mx-auto">
           {products.map((product, index) => (
             <div
               key={index}
-              className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-1000 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
-              } ${index % 2 === 1 ? "lg:flex-row-reverse" : ""}`}
+              className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"} ${
+                index % 2 === 1 ? "lg:flex-row-reverse" : ""
+              }`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
               {/* Image Side */}
               <div className="w-full lg:w-1/2 group">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3]">
-                  <img 
-                    src={product.image} 
-                    alt={product.grade} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl  aspect-[4/3]">
+                  <img src={product.image} alt={product.grade} className="w-full h-full ml-6 object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-                  
-                  {product.highlight && (
-                    <div className="absolute top-4 left-4 bg-gold text-charcoal text-xs font-bold px-4 py-2 rounded-full shadow-lg">
-                      {t("products.badge.bestseller")}
-                    </div>
-                  )}
+
+                  {product.highlight && <div className="absolute top-4 left-4 bg-gold text-charcoal text-xs font-bold px-4 py-2 rounded-full shadow-lg">{t("products.badge.bestseller")}</div>}
+
+                  {product.showShapeNote && <div className="absolute bottom-4 left-4 text-white text-xs font-bold px-4 py-2">*Shape Depending on Request</div>}
                 </div>
               </div>
 
               {/* Content Side */}
               <div className="w-full lg:w-1/2 space-y-8">
                 <div>
-                  <h3 className="font-[Onest] text-4xl md:text-5xl font-bold text-white mb-4">
-                    {product.grade}
-                  </h3>
-                  <p className="text-gray-400 text-lg leading-relaxed">
-                    {product.description}
-                  </p>
+                  <h3 className="font-[Onest] text-4xl md:text-5xl font-bold text-white mb-4">{product.grade}</h3>
+                  <p className="text-gray-400 text-lg leading-relaxed">{product.description}</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -134,7 +122,7 @@ const ProductsSection = () => {
                 </div>
 
                 <div className="pt-4">
-                  <button 
+                  <button
                     onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                     className="group inline-flex items-center gap-2 text-gold font-bold text-lg hover:text-white transition-colors"
                   >
@@ -148,9 +136,7 @@ const ProductsSection = () => {
         </div>
 
         <div className="mt-24 text-center">
-          <p className="text-gray-500 text-sm">
-            {t("products.disclaimer")}
-          </p>
+          <p className="text-gray-500 text-sm">{t("products.disclaimer")}</p>
         </div>
       </div>
     </section>

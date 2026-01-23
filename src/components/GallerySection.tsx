@@ -38,29 +38,29 @@ const GallerySection = () => {
   }, []);
 
   const images = [
-    { 
-      src: galleryEfficient, 
-      alt: t("gallery.images.efficient.alt"), 
+    {
+      src: galleryEfficient,
+      alt: t("gallery.images.efficient.alt"),
       category: t("gallery.categories.production"),
-      className: "md:col-span-2 md:row-span-2" 
+      className: "md:col-span-2 md:row-span-2",
     },
-    { 
-      src: galleryTeams, 
-      alt: t("gallery.images.teams.alt"), 
+    {
+      src: galleryTeams,
+      alt: t("gallery.images.teams.alt"),
       category: t("gallery.categories.team"),
-      className: "md:col-span-2 md:row-span-1" 
+      className: "md:col-span-2 md:row-span-1",
     },
-    { 
-      src: galleryProduct, 
-      alt: t("gallery.images.product.alt"), 
+    {
+      src: galleryProduct,
+      alt: t("gallery.images.product.alt"),
       category: t("gallery.categories.product"),
-      className: "md:col-span-1 md:row-span-1" 
+      className: "md:col-span-1 md:row-span-1",
     },
-    { 
-      src: gallerySafety, 
-      alt: t("gallery.images.safety.alt"), 
+    {
+      src: gallerySafety,
+      alt: t("gallery.images.safety.alt"),
       category: t("gallery.categories.logistics"),
-      className: "md:col-span-1 md:row-span-1" 
+      className: "md:col-span-1 md:row-span-1",
     },
   ];
 
@@ -80,29 +80,22 @@ const GallerySection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <SectionHeader 
-          label={t("gallery.label")}
-          title={t("gallery.title")}
-          subtitle={t("gallery.subtitle")}
-          className="mb-12"
-        />
+        <SectionHeader label={t("gallery.label")} title={t("gallery.title")} subtitle={t("gallery.subtitle")} className="mb-12" />
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto auto-rows-[200px] md:auto-rows-[250px]">
           {images.map((image, index) => (
-            <div 
-              key={index} 
-              className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-white/10 bg-white/5 transition-all duration-700 ${image.className} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            <div
+              key={index}
+              className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-white/10 bg-white/5 transition-all duration-700 ${image.className} ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
               style={{ transitionDelay: `${index * 150}ms` }}
               onClick={() => {
                 setSelectedImage(image.src);
                 setIsZoomed(false);
               }}
             >
-              <img 
-                src={image.src} 
-                alt={image.alt} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              />
+              <img src={image.src} alt={image.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 transition-opacity duration-300" />
 
@@ -112,12 +105,10 @@ const GallerySection = () => {
                     <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>
-                
+
                 <div className="transform translate-y-0 transition-transform duration-300">
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gold text-charcoal mb-2">
-                    {image.category}
-                  </span>
                   <h3 className="text-xl font-bold text-white leading-tight">{image.alt}</h3>
+                  <span className="inline-block px-3 py-1 rounded-sm text-xs font-bold bg-gold text-charcoal mb-2">{image.category}</span>
                 </div>
               </div>
             </div>
@@ -125,9 +116,7 @@ const GallerySection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-gray-500 text-sm">
-            {t("gallery.explore")}
-          </p>
+          <p className="text-gray-500 text-sm">{t("gallery.explore")}</p>
         </div>
       </div>
 
